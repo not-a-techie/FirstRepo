@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <form action="" id="form">
+        <input type="text" id="username" placeholder="username">
+        <input type="password" name="password" id="password" placeholder="password">
+        <input type="submit" value="Click to submit">
+    </form>
+    <form action="" id="Login">
+        <input type="text" id="logusername" placeholder="username">
+        <input type="password" name="password" id="logpassword" placeholder="password">
+        <input type="submit" value="Click to Login">
+    </form>
+    <script>
+        var formdata=document.getElementById('form');
+        formdata.addEventListener('submit',registerUser)
+        var logindata=document.getElementById('Login')
+        logindata.addEventListener('submit',validateUser)
+        async function registerUser(event)
+        {
+            console.log("called register user")
+            event.preventDefault();
+            var username=document.getElementById('username').value
+            var password=document.getElementById('password').value
+            const results=await fetch('/addDetails',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({   username ,password}) 
+            })
+            // console.log(results)
+        }
+        async function validateUser(event) {
+                console.log("called validate user")
+                event.preventDefault();
+                var username = document.getElementById('logusername').value
+                var password = document.getElementById('logpassword').value
+                const results = await fetch('/validateDetails', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                })
+                // console.log(results)
+            }
+    </script>
+
+
+
+</body>
+</html>
